@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='wannatry.css') }}">
+    <title>finaltry</title>
+</head>
+<body>
+    <div class="container">
+        <input type="file" id="file" accept=".jpeg,.png,jpg" hidden>
+        <div class="img-area" data-img="hello.png">
+
+            <i class="bx bxs-cloud-upload icon"></i>
+            <h3>UPLOAD IMAGE</h3>
+            <p>image size must be less than <span>2MB</span></p>
+            <img src="{{ url_for('static', filename='girls.jpeg') }}" alt="">
+        </div>
+        <button class="select-image">select image</button>
+    </div>
+    <script>
+        const selectimage=document.querySelector('.select-image');
+const inputFile=document.querySelector('#file');
+const imgArea=document.querySelector('.img-area');
+selectimage.addEventListener('click',function(){
+    inputFile.click();
+
+})
+inputFile.addEventListener('change',function(){
+    const image = this.files[0]
+    console.log(image);
+    if(image.size<2000000){
+        const reader=new FileReader();
+         reader.onload=()=>{
+            const allImg=imgArea.querySelectorAll('img');
+            allImg.forEach(item=>item.remove());
+            const imgUrl=reader.result;
+            const img=document.createElement('img');
+            img.src=imgUrl;
+            imgArea.appendChild(img);
+            imgArea.classList.add('active');
+            imgArea.CDATA_SECTION_NODE.img= image.name;
+
+        }
+        reader.readAsDataURL(image);
+    }else{
+        alert("image size more than 2MB");
+    }
+}) 
+    </script>
+</body>
+</html>

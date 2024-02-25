@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Blog service</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="header">
+                <h1>Our Blog</h1>
+                <p>Emotions are an integral part of our daily lives and understanding them can provide valuable insights into human behaviour.In this we will explore the lastest advancements in computer vision technology and how its revolutionizing the way we detect and interpret emotions through facial expressions</p>
+            </div>
+            <div class="content">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='car.jpg') }}">
+                    <h4>Saftey driving</h4>
+                    <p>when its comes to face detection in driving,security,there are few intresting aspect to consider.one application could be using facial recognition technology to enhance to check driver in consious</p>
+                </div>
+                <div class="card">
+                    <img src="{{ url_for('static', filename='security.jpg') }}">
+                    <h4>Security system</h4>
+                    <p>when it comes to face emotion detection in security purpose it can have some valuable applications.it become possible to identify suspicious behaviour or potential threads based on facial expression</p>
+                </div>
+                <div class="card">
+                    <img src="{{ url_for('static', filename='medical.jpg') }}">
+                    <h4>Medical support</h4>
+                    <p>It has the potential to assist health care pofessional in understanding patients emotional status and providing personalised health care </p>
+                </div>
+                <div class="card">
+                    <img src="{{ url_for('static', filename='computerlearning.jpeg') }}">
+                    <h4>Robot Expression</h4>
+                    <p>By training mechine learning algorithms on large data sets of facial expressions, computer can learn to recognize and interpret different emotions such as improving human -computer interactions,virtual reality expriences, and even creating more empathics chatbots</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,700&display=swap');
+    *{
+        margin: 0px;
+        padding: 0px;
+        box-sizing: border-box;
+        font-family: 'Lato', sans-serif;  
+    }
+    .container{
+        width: 100%;
+    }
+    .container .row{
+        width: 80%;
+        margin: auto;
+    }
+    .container .row .header{
+        width: 60%;
+        text-align: center;
+        margin: auto;
+    }
+    .container .row .header h1{
+        padding-top: 30px;
+        font-size: 45px;
+        color: #e19c30;
+    }
+    .container .row .header p{
+        margin-top: 15px;
+        font-size: 18px;
+        line-height: 1.5;
+        color: #6e6e6e;
+    }
+    .content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+    }
+    .content .card{
+        flex: 1;
+        margin: 50px 20x;
+        box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+        background-color: white;
+    }
+    .content .card img{
+        width: 75%;
+        height: auto;
+    }
+    .content .card h4{
+        margin-top: 10px;
+        margin-left: 10px;
+        font-size: 18px;
+    }
+    .content .card p{
+        font-size: 15px;
+        color: #6e6e6e;
+        line-height: 1.5;
+        padding: 10px;
+    }
+    @media screen and (max-width:768px){
+        .content{
+            flex-direction: column;
+        }
+    }
+</style>
+    
+</body>
+</html>
