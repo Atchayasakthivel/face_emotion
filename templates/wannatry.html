@@ -2,52 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='wannatry.css') }}">
-    <title>finaltry</title>
+    <title>Image Uploader</title>
 </head>
 <body>
-    <div class="container">
-        <input type="file" id="file" accept=".jpeg,.png,jpg" hidden>
-        <div class="img-area" data-img="hello.png">
+    <h1>Image Uploader</h1>
+    
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".jpeg,.png,.jpg" required>
+        <button type="submit">Upload</button>
+    </form>
+    {% if parsed_data %}
+    <h2>Emotion Details</h2>
+    <div id="imageGallery">
+      <h3>Emotion1: {{ parsed_data['emotion_details']['emotion'] }}</h3>
+      <h3>Confidence: {{ parsed_data['emotion_details']['confidence'] }}</h3>
+      <h3>Analysis: {{ parsed_data['emotion_details']['analysis'] }}</h3>
 
-            <i class="bx bxs-cloud-upload icon"></i>
-            <h3>UPLOAD IMAGE</h3>
-            <p>image size must be less than <span>2MB</span></p>
-            <img src="{{ url_for('static', filename='girls.jpeg') }}" alt="">
-        </div>
-        <button class="select-image">select image</button>
+      <h3>Face Details: {{ parsed_data['face_details']['bbox'] }}</h3>
+      <h3>Race Details: {{ parsed_data['race_details']['race'] }}</h3>
+      <h3>Race Confidence: {{ parsed_data['race_details']['confidence'] }}</h3>
+
+      <h3>Gender Details: {{ parsed_data['gender_details']['gender'] }}</h3>
+      <h3>Gender Confidence: {{ parsed_data['gender_details']['confidence'] }}</h3>
     </div>
+{% endif %}
+
+
+
+    </div>
+
+    <!-- JavaScript code to display uploaded images -->
     <script>
-        const selectimage=document.querySelector('.select-image');
-const inputFile=document.querySelector('#file');
-const imgArea=document.querySelector('.img-area');
-selectimage.addEventListener('click',function(){
-    inputFile.click();
+        // Fetch uploaded images from the server and display them
+        async function fetchImages() {
+            const response = await fetch('/images');
+            const images = await response.json();
+            const imageGallery = document.getElementById('imageGallery');
 
-})
-inputFile.addEventListener('change',function(){
-    const image = this.files[0]
-    console.log(image);
-    if(image.size<2000000){
-        const reader=new FileReader();
-         reader.onload=()=>{
-            const allImg=imgArea.querySelectorAll('img');
-            allImg.forEach(item=>item.remove());
-            const imgUrl=reader.result;
-            const img=document.createElement('img');
-            img.src=imgUrl;
-            imgArea.appendChild(img);
-            imgArea.classList.add('active');
-            imgArea.CDATA_SECTION_NODE.img= image.name;
-
+            images.forEach(image => {
+                const imgElement = document.createElement('img');
+                imgElement.src = 'data:image/jpeg;base64,' + image.data; // Assuming images are stored as base64 encoded strings
+                imgElement.alt = image.name;
+                imageGallery.appendChild(imgElement);
+            });
         }
-        reader.readAsDataURL(image);
-    }else{
-        alert("image size more than 2MB");
-    }
-}) 
+
+        // Call fetchImages() when the page loads
+        fetchImages();
     </script>
 </body>
 </html>
