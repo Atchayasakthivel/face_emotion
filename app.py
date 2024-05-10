@@ -11,6 +11,7 @@ def create_connection():
     cursor = conn.cursor()
     return conn, cursor
 
+
 # Create images table if it doesn't exist
 def create_table():
     conn, cursor = create_connection()
